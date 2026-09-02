@@ -11,4 +11,4 @@ metadata:
 
 **Acción correcta**: habilitar `agentidentity.googleapis.com` en su lugar — esa sí se habilita sin fricción. Piezas base que la acompañan: `iam.googleapis.com`, `iamcredentials.googleapis.com` (impersonation/WIF).
 
-Confirmado en el proyecto `sandbox-ai-zabaljauregui` (2026-08-28, ver [[gcp-sandbox-project]]).
+Confirmado en un proyecto GCP propio (2026-08-28, ver [[gcp-sandbox-project]]).
