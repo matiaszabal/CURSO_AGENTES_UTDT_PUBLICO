@@ -1,0 +1,65 @@
+# Módulo 2 — Diseño de Sistemas Agénticos — Labs
+#
+# Instalación:
+#     python -m venv .venv && source .venv/bin/activate
+#     pip install -r requirements.txt
+#
+# En Google Colab:
+#     !pip install -q google-adk nest_asyncio
+#
+# ==============================================================================
+# AUTENTICACIÓN Y CUOTA — LEER ANTES DE CORRER NADA
+# ==============================================================================
+# Los cuatro scripts de esta carpeta llaman a un modelo real. No hay ninguna
+# parte que corra offline. Se necesita una API key gratuita de Google AI
+# Studio (https://aistudio.google.com/apikey):
+#
+#     export GOOGLE_API_KEY="tu-api-key-de-ai-studio"
+#     export GOOGLE_GENAI_USE_VERTEXAI=FALSE
+#
+# No hace falta gcloud, ni proyecto de GCP, ni Vertex AI habilitado.
+# OJO: si tenés GOOGLE_GENAI_USE_VERTEXAI=TRUE en el entorno, el cliente
+# ignora la API key y busca credenciales de Vertex. Ver README.md,
+# "Errores frecuentes" #3.
+#
+# CUOTA. El tier gratuito tiene límite por minuto y por día, distinto para
+# cada modelo. Consumo aproximado de los tres ejercicios:
+#
+#   Ejercicio 1   ~6-18 llamadas   gemini-2.5-flash
+#   Ejercicio 2   ~18 llamadas     gemini-2.5-flash
+#                                  <-- EL QUE MAS RAPIDO AGOTA LA CUOTA:
+#                                      el modo paralelo dispara 3 requests
+#                                      en la misma fracción de segundo.
+#   Ejercicio 3   ~10 llamadas     gemini-2.5-flash-lite + gemini-2.5-flash
+#                                  + gemini-2.5-pro (el de cuota gratuita
+#                                  más ajustada de los tres)
+#
+# Ante un 429 RESOURCE_EXHAUSTED: no es un bug. Ver README.md,
+# "Errores frecuentes" #1. Resumen: esperar, recortar las listas de casos
+# de prueba, o intercalar sleep(). Los tres ejercicios son independientes
+# y no hace falta correrlos el mismo día.
+
+# --- Los tres ejercicios: agentes con ADK2 -----------------------------------
+google-adk>=2.8.0
+# google-genai llega como dependencia de google-adk — no hace falta pinnearlo
+# aparte.
+
+# --- Notebooks (Colab / Jupyter) ---------------------------------------------
+nest-asyncio>=1.6.0
+# Los Ejercicios 1 y 2 terminan en asyncio.run(...), que falla dentro de un
+# notebook con "RuntimeError: asyncio.run() cannot be called from a running
+# event loop". Ver README.md, "Errores frecuentes" #4. En Colab suele venir
+# preinstalado.
+
+# --- NO hace falta -------------------------------------------------------
+# google-cloud-aiplatform   Estos labs NO usan Vertex AI. Todo corre con la
+#                           API key de AI Studio.
+# langgraph / langchain-*   No se usan en esta carpeta.
+
+# --- Entorno de referencia (informativo) -------------------------------------
+# Python 3.10+ debería alcanzar (el código no usa sintaxis de 3.11+).
+#
+# Nota sobre determinismo: nada de estos labs es determinista, y eso es
+# contenido, no un defecto. Las respuestas del agente (Ej. 1), los JSON de
+# los analizadores (Ej. 2) y la clasificación del router (Ej. 3) cambian
+# entre corridas.
