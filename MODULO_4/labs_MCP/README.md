@@ -5,6 +5,37 @@ las dos puntas del **Model Context Protocol (MCP)**: agentes que *consumen*
 servidores MCP (clientes) y servidores MCP que *exponen* herramientas
 (servidores). Se corren todos juntos desde un único `adk web`.
 
+## Inicio rápido
+
+Necesitás: **Python 3.10+**, **Node.js** (para `npx`) y una **API key gratuita de
+Google AI Studio** (<https://aistudio.google.com/apikey>).
+
+```bash
+git clone https://github.com/matiaszabal/CURSO_AGENTES_UTDT_PUBLICO.git
+cd CURSO_AGENTES_UTDT_PUBLICO/MODULO_4/labs_MCP
+
+python3 -m venv .venv              # Windows: py -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+cp .env.example .env               # Windows: copy .env.example .env
+# Abrí .env y reemplazá GOOGLE_API_KEY por tu key de AI Studio
+
+adk web                            # y abrí http://127.0.0.1:8000
+```
+
+En la página elegí un agente en el desplegable de arriba a la izquierda y
+escribile un prompt (hay ejemplos más abajo). Para arrancar rápido usá
+`weather_agent`: solo necesita la key de AI Studio. Los dos agentes de Maps
+necesitan además una key de Google Maps (ver más abajo); sin una key válida
+esos dos fallan al usarlos, y los otros tres funcionan igual.
+
+También podés probar un agente desde la terminal, sin interfaz web:
+
+```bash
+adk run weather_agent "¿Qué clima hace en Córdoba?"
+```
+
 ## Los cinco ejemplos
 
 | Agente | Qué muestra | Necesita |
@@ -44,8 +75,8 @@ lugar de Vertex AI.
 
 ### API key de Google Maps (solo para los dos agentes de Maps)
 
-Si no la configurás, esos dos agentes van a mostrar un error de configuración
-en `adk web`, y los otros tres funcionan igual.
+Si no la configurás, esos dos agentes van a fallar cuando les hagas una pregunta
+(error de autenticación o de configuración), y los otros tres funcionan igual.
 
 1. En [Google Cloud Console](https://console.cloud.google.com/) creá (o elegí) un proyecto. Maps Platform es de pago por uso y requiere una cuenta de facturación asociada; revisá los [precios vigentes](https://mapsplatform.google.com/pricing/) antes de habilitar las APIs. Estos ejemplos hacen muy pocas llamadas.
 2. Creá una API key en *APIs y servicios → Credenciales* y pegala en `.env` como `GOOGLE_MAPS_API_KEY=...`.
@@ -89,7 +120,7 @@ grafo del agente y las llamadas a tools, usá las pestañas *Trace* y *Events*.
 ## Problemas frecuentes
 
 - **`npx: command not found`** — instalá Node.js y reabrí la terminal.
-- **`Falta GOOGLE_MAPS_API_KEY`** — completá la key en `.env` o ignorá los dos agentes de Maps.
+- **`Falta GOOGLE_MAPS_API_KEY`** (o un error de autenticación de Maps) — completá una key válida en `.env` o ignorá los dos agentes de Maps.
 - **El agente de Maps responde con un error de permisos (`REQUEST_DENIED`)** — falta habilitar alguna de las APIs de la lista en tu proyecto.
 - **`401`/`403`/`API key not valid` del modelo** — revisá `GOOGLE_API_KEY` y que `GOOGLE_GENAI_USE_VERTEXAI=FALSE`.
 - **Timeout al iniciar un agente con `npx`** — la primera vez npx descarga el paquete; volvé a intentar.
