@@ -1,0 +1,13 @@
+# Dependencias de los labs de MCP (Módulo 4).
+# Probado con Python 3.14 y google-adk 2.9.1 (ver los requisitos de Python de google-adk si usás otra versión).
+#
+# Además hace falta Node.js (npx) en el PATH: mcp_agent y maps_agent usan
+# servidores MCP publicados en npm.
+
+google-adk[mcp]>=2.8.0,<3.0.0
+fastmcp>=3.0.0,<4.0.0
+python-dotenv>=1.0.0
+
+# load_web_page (web_reader_agent) parsea HTML con estas dos
+beautifulsoup4>=4.12.0
+lxml>=5.0.0

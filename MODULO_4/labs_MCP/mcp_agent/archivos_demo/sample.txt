@@ -1,0 +1,6 @@
+Este es un archivo de texto de prueba para el ejemplo de MCP + ADK.
+
+El agente filesystem_assistant_agent puede listar, leer y (si se lo pedís)
+escribir archivos dentro de esta carpeta usando el servidor MCP oficial
+@modelcontextprotocol/server-filesystem, sin que el agente tenga una sola
+línea de código de manejo de archivos.
