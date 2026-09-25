@@ -1,0 +1,24 @@
+# =====================================================================
+# Labs Módulo 1 — Arquitectura de Agentes IA · UTDT 2026
+#
+# Instalación: ./setup.sh (ver README.md), o manualmente:
+#   python -m venv .venv && source .venv/bin/activate
+#   pip install -r requirements.txt
+#
+# Autenticación: API key de Google AI Studio en la variable
+# GOOGLE_API_KEY (archivo .env).
+# =====================================================================
+
+# Agent + FunctionTool + InMemoryRunner. Los usan las Versiones B y C y el
+# ejercicio de investigación (la Versión A determinista no llama a ningún
+# modelo).
+# pydantic viene como dependencia transitoria — se usa directo para el
+# output_schema de la Versión B.
+google-adk==2.2.0
+
+# Dependencia de google-adk. Se pinea igual para que el entorno sea
+# reproducible.
+google-genai==2.8.0
+
+# Los scripts hacen load_dotenv().
+python-dotenv==1.2.1
